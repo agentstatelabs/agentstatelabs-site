@@ -1,0 +1,23 @@
+---
+/**
+ * Starlight Footer override — renders the stock footer (prev/next links,
+ * last-updated, edit link) and appends the site copyright underneath.
+ */
+import Default from '@astrojs/starlight/components/Footer.astro';
+
+const year = new Date().getFullYear();
+---
+
+<Default><slot /></Default>
+
+<div class="site-copyright">&copy; {year} AgentStateLabs, LLC.</div>
+
+<style>
+	.site-copyright {
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--sl-color-gray-5);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+</style>

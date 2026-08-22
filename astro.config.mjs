@@ -8,6 +8,9 @@ export default defineConfig({
 		starlight({
 			title: 'AgentStateLabs',
 			description: 'Infrastructure for the intent-based era — state graphs, memory, code intelligence, routing, and agent validation.',
+			components: {
+				Footer: './src/components/Footer.astro',
+			},
 			social: [
 			],
 			sidebar: [

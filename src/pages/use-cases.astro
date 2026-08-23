@@ -1,0 +1,126 @@
+---
+/**
+ * Suite-level use cases for agentstatelabs.com.
+ *
+ * Deliberately cross-product: each scenario names the products it combines
+ * rather than listing one product's features. Per-product use cases live on
+ * the product sites — this page exists to show what the suite does that no
+ * single product does alone.
+ *
+ * Single page rather than a directory, following the ASD pattern chosen for
+ * this site. Route is /use-cases/, which the nav, footer and landing CTAs
+ * already point at.
+ */
+import Site from '../layouts/Site.astro';
+
+const cases = [
+  {
+    n: '01',
+    slug: 'agent onboarding',
+    token: '--p-ctxone',
+    title: 'Start a session that already knows the codebase',
+    body:
+      'A fresh agent session begins blind: no memory of last week, no idea why the retry loop is odd. Wire CTXone and AgentStateDeveloper into the same MCP connection and the session opens with the team’s decisions and the code’s own ledger already in hand.',
+    code: '<span class="p">$</span> ctx recall "payments architecture"\n<span class="p">$</span> asd ledger get payments.chargeCard',
+    uses: ['CTXone', 'AgentStateDeveloper'],
+  },
+  {
+    n: '02',
+    slug: 'long-running work',
+    token: '--p-asg',
+    title: 'Carry a plan across weeks and sessions',
+    body:
+      'Multi-week work dies at the session boundary — the plan drifts, the reasoning evaporates, and the next session re-derives decisions that were already settled. A plan held in the graph is state: resumable, checkable, and branchable when you want to try a direction without losing the current one.',
+    code: '<span class="p">$</span> ctx plan next\n<span class="p">$</span> ctx branch spike/new-schema',
+    uses: ['CTXone', 'AgentStateGraph'],
+  },
+  {
+    n: '03',
+    slug: 'regulated deployment',
+    token: '--p-asd',
+    title: 'Put agents in a workflow that has to survive an audit',
+    body:
+      'In regulated environments the question is never just "did it work" — it is who authorised it, under what policy, and can you prove the record was not edited afterwards. Provenance on every write, policy gates on sensitive paths, and a hash-chained audit log make that answerable rather than aspirational.',
+    code: '<span class="p">$</span> ctx why-did-we /memory/legal/retention\n<span class="p">$</span> asd audit verify',
+    uses: ['AgentStateGraph', 'AgentStateDeveloper', 'CTXone'],
+  },
+  {
+    n: '04',
+    slug: 'model selection',
+    token: '--p-thread',
+    title: 'Choose a model on your workload, not a benchmark',
+    body:
+      'Public benchmarks rank models on someone else’s tasks. Branch the same conversation across several providers to compare them side by side on work you actually do, then let routing history turn that comparison into a standing decision per task type.',
+    code: '<span class="p">#</span> fork one thread across providers,\n<span class="p">#</span> then route on the observed result',
+    uses: ['ThreadWeaver', 'AgentStateRouter'],
+  },
+  {
+    n: '05',
+    slug: 'change validation',
+    token: '--p-crucible',
+    title: 'Prove a change before it reaches production',
+    body:
+      'You changed a prompt and one run passed. That is a single sample from a distribution you have not examined. Run the scenario against multiple agents, capture each decision path as a graph, and check the blast radius of the underlying code change in the same pass.',
+    code: '<span class="p">$</span> asd effects_of processOrder\n<span class="p">#</span> then replay the scenario and diff runs',
+    uses: ['AgentStateCrucible', 'AgentStateDeveloper'],
+  },
+  {
+    n: '06',
+    slug: 'spend control',
+    token: '--p-router',
+    title: 'Cut agent spend without capping quality',
+    body:
+      'Blanket downgrades to a cheaper model save tokens and cost more overall, because the retries land somewhere you are not measuring. Route on cost-per-unit-of-work drawn from your own history, with budget circuit breakers, and keep every routing decision as a commit you can interrogate later.',
+    code: '<span class="p">#</span> route by task type on observed\n<span class="p">#</span> completion cost, not token price',
+    uses: ['AgentStateRouter', 'AgentStateGraph'],
+  },
+];
+---
+<Site
+  active="use-cases"
+  title="Use cases — AgentStateLabs"
+  description="Where the suite earns its keep: agent onboarding, long-running work, regulated deployments, model selection, change validation and spend control — each combining several products on one state graph."
+  url="https://agentstatelabs.com/use-cases/"
+>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot">//</span> Use cases</span>
+    <h1>What the suite does that <span style="color:var(--accent-bright)">no single product does</span>.</h1>
+    <p class="lead">Each product stands on its own. These are the workflows that only work because they share one graph — where memory, code context, routing and validation are the same state, not four systems agreeing with each other.</p>
+  </div>
+</section>
+
+<section class="section tight">
+  <div class="wrap">
+    <div class="card-grid cols-2" data-reveal>
+      {cases.map((c) => (
+        <div class="card" style={`--ac: var(${c.token})`}>
+          <div class="slug">{c.n} // {c.slug}</div>
+          <h3>{c.title}</h3>
+          <p>{c.body}</p>
+          <pre set:html={c.code}></pre>
+          <div class="uses">
+            {c.uses.map((u) => <span>{u}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap" style="text-align:center">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow"><span class="dot">//</span> Get started</span>
+      <h2 class="section-title">Adopt one layer, or the graph underneath.</h2>
+      <p class="section-subtitle">Nothing here requires the whole suite. Each product is self-hosted and MCP-native on its own — they compound when they share a graph.</p>
+    </div>
+    <div data-reveal style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="/products/">Compare the products →</a>
+      <a class="btn btn-secondary" href="/blog/">Read the blog</a>
+    </div>
+  </div>
+</section>
+
+</Site>

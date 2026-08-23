@@ -24,11 +24,13 @@ export default defineConfig({
 				{
 					label: 'Products',
 					items: [
+						// Ordered by stage: the v1.0.0 GA set first, then earlier-stage products.
 						{ label: 'AgentStateGraph', slug: 'products/agentstategraph' },
-						{ label: 'AgentStateDeveloper', slug: 'products/agentstatedeveloper' },
 						{ label: 'CTXone', slug: 'products/ctxone' },
-						{ label: 'AgentStateRouter', slug: 'products/agentstaterouter' },
+						{ label: 'AgentStateDeveloper', slug: 'products/agentstatedeveloper' },
+						{ label: 'ThreadWeaver', slug: 'products/threadweaver' },
 						{ label: 'AgentStateCrucible', slug: 'products/agentStatecrucible' },
+						{ label: 'AgentStateRouter', slug: 'products/agentstaterouter' },
 					],
 				},
 				{

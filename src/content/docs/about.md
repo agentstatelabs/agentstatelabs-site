@@ -32,7 +32,7 @@ That substrate is [AgentStateGraph](/products/agentstategraph/): a content-addre
 | [CTXone](/products/ctxone/) | Persistent memory for agents — survives sessions, restarts, tool switches |
 | [AgentStateDeveloper](/products/agentstatedeveloper/) | Code-level context: decision ledger, effects, call graph, agent thinking |
 | [ThreadWeaver](/products/threadweaver/) | Branchable AI conversations — fork any message, compare branches, cherry-pick |
-| [AgentStateCrucible](/products/agentStatecrucible/) | Agent testing — side-by-side validation with auditable, judge-scored runs |
+| [AgentStateCrucible](/products/agentstatecrucible/) | Agent testing — side-by-side validation with auditable, judge-scored runs |
 | [AgentStateRouter](/products/agentstaterouter/) | Execution optimization — routes tasks to the right agent at the right cost |
 
 ## Licensing

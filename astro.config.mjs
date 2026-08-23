@@ -18,21 +18,11 @@ export default defineConfig({
 					label: 'Company',
 					items: [
 						{ label: 'About', slug: 'about' },
-						{ label: 'Products', slug: 'products' },
+						{ label: 'Products', link: '/products/' },
 					],
 				},
-				{
-					label: 'Products',
-					items: [
-						// Ordered by stage: the v1.0.0 GA set first, then earlier-stage products.
-						{ label: 'AgentStateGraph', slug: 'products/agentstategraph' },
-						{ label: 'CTXone', slug: 'products/ctxone' },
-						{ label: 'AgentStateDeveloper', slug: 'products/agentstatedeveloper' },
-						{ label: 'ThreadWeaver', slug: 'products/threadweaver' },
-						{ label: 'AgentStateCrucible', slug: 'products/agentStatecrucible' },
-						{ label: 'AgentStateRouter', slug: 'products/agentstaterouter' },
-					],
-				},
+				// Product pages moved out of Starlight to src/pages/products/ as
+				// marketing pages; the docs sidebar links across to them.
 				{
 					label: 'Platform',
 					items: [

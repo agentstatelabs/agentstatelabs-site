@@ -1,0 +1,119 @@
+---
+/**
+ * Per-product page. One route generates all six from src/data/products.ts,
+ * so the pages cannot drift apart in structure or fall out of sync with the
+ * portfolio table on /products/.
+ *
+ * Each page is a marketing summary that hands off to the product's own site
+ * for documentation — this site does not duplicate product docs.
+ */
+import Site from '../../layouts/Site.astro';
+import { products } from '../../data/products';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+
+const { p } = Astro.props;
+const others = products.filter((o) => o.slug !== p.slug);
+---
+<Site
+  active="products"
+  title={`${p.name} — AgentStateLabs`}
+  description={`${p.name}: ${p.tagline} ${p.facts}`}
+  url={`https://agentstatelabs.com/products/${p.slug}/`}
+>
+
+<section class="page-hero" style={`--ac: var(${p.token})`}>
+  <div class="wrap prod">
+    <a class="a-back" href="/products/">← All products</a>
+    <span class="role-tag">{p.role}</span>
+    <h1>{p.name}</h1>
+    <p class="lead">{p.tagline}</p>
+    <div class="badges">
+      <span class="tier">{p.tier}</span>
+      {p.version && <span class="tier">{p.version}</span>}
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href={p.site} target="_blank" rel="noopener">Visit {p.site.replace('https://', '')} →</a>
+      {p.source && <a class="btn btn-secondary" href={p.source} target="_blank" rel="noopener">Source</a>}
+    </div>
+  </div>
+</section>
+
+<section class="section tight" style={`--ac: var(${p.token})`}>
+  <div class="wrap prod-body">
+    <div class="block">
+      <span class="eyebrow"><span class="dot">//</span> The problem</span>
+      <p class="para">{p.problem}</p>
+    </div>
+    <div class="block">
+      <span class="eyebrow"><span class="dot">//</span> The premise</span>
+      <p class="para">{p.premise}</p>
+    </div>
+    <div class="block">
+      <span class="eyebrow"><span class="dot">//</span> Capabilities</span>
+      <ul class="caps">
+        {p.capabilities.map((c) => <li>{c}</li>)}
+      </ul>
+      <p class="facts-line">{p.facts}</p>
+    </div>
+    <div class="block">
+      <span class="eyebrow"><span class="dot">//</span> Pairs with</span>
+      <ul class="caps">
+        {p.pairsWith.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+    <div class="block">
+      <span class="eyebrow"><span class="dot">//</span> Licensing</span>
+      <p class="para">
+        Source-available under BSL-1.1, converting to Apache 2.0 four years
+        after each version's first publication. Internal use — including in
+        production — is unrestricted.
+        {!p.source && ' Source access is available under a commercial arrangement.'}
+        {' '}Commercial licensing: <a href="mailto:licensing@agentstatelabs.com">licensing@agentstatelabs.com</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="dot">//</span> The rest of the suite</span>
+      <h2 class="section-title">Built on the same graph.</h2>
+    </div>
+    <div class="card-grid" data-reveal>
+      {others.map((o) => (
+        <a class="card product" href={`/products/${o.slug}/`} style={`--ac: var(${o.token})`}>
+          <span class="role">{o.role}</span>
+          <h3>{o.name}</h3>
+          <p>{o.tagline}</p>
+          <div class="card-foot">
+            <span class="tier">{o.tier}</span>
+            <span style="font-size:13px;font-weight:600;color:var(--ac)">Details&nbsp;→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+</Site>
+
+<style>
+  .prod { max-width: 760px; }
+  .role-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ac); }
+  .prod h1 { font-size: clamp(34px, 5vw, 50px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; margin: 10px 0 16px; }
+  .badges { display: flex; gap: 8px; margin-top: 18px; }
+  .badges .tier { display: inline-block; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border-strong); border-radius: 999px; padding: 3px 10px; }
+  .prod-body { max-width: 760px; }
+  .block { padding: 26px 0; border-top: 1px solid var(--border); }
+  .block:first-child { border-top: none; padding-top: 0; }
+  .para { font-size: 16.5px; color: var(--text-secondary); line-height: 1.75; margin-top: 12px; }
+  .para a { color: var(--ac); }
+  .caps { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .caps li { position: relative; padding-left: 22px; font-size: 15.5px; color: var(--text-secondary); line-height: 1.65; }
+  .caps li::before { content: '→'; position: absolute; left: 0; color: var(--ac); }
+  .facts-line { font-family: var(--mono); font-size: 12px; color: var(--text-muted); margin-top: 18px; line-height: 1.7; }
+</style>

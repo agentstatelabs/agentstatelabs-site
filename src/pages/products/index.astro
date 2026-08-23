@@ -1,0 +1,102 @@
+---
+/**
+ * Products overview. Supersedes the Starlight docs page that previously
+ * lived at this route — src/pages wins over the injected docs route, and
+ * the docs version was removed rather than left orphaned.
+ *
+ * Renders from src/data/products.ts, as does the per-product page.
+ */
+import Site from '../../layouts/Site.astro';
+import { products } from '../../data/products';
+---
+<Site
+  active="products"
+  title="Products — AgentStateLabs"
+  description="Six products on one state graph: AgentStateGraph, CTXone, AgentStateDeveloper, ThreadWeaver, AgentStateCrucible and AgentStateRouter. AgentStateLabs v1.0.0 covers the first three."
+  url="https://agentstatelabs.com/products/"
+>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot">//</span> Products</span>
+    <h1>Six products. <span style="color:var(--accent-bright)">One state graph.</span></h1>
+    <p class="lead">Each one stands alone and is self-hosted and MCP-native. They compound because they write to the same content-addressed graph — so memory, code decisions, conversations, routing and test runs are one auditable history rather than five that need reconciling.</p>
+  </div>
+</section>
+
+<section class="section tight">
+  <div class="wrap">
+    <div class="card-grid" data-reveal>
+      {products.map((p) => (
+        <a class="card product" href={`/products/${p.slug}/`} style={`--ac: var(${p.token})`}>
+          <span class="role">{p.role}</span>
+          <h3>{p.name}</h3>
+          <p>{p.tagline}</p>
+          <p class="facts">{p.facts}</p>
+          <div class="card-foot">
+            <span class="tier">{p.tier}</span>
+            <span style="font-size:13px;font-weight:600;color:var(--ac)">Details&nbsp;→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow"><span class="dot">//</span> At a glance</span>
+      <h2 class="section-title">What each layer is for.</h2>
+      <p class="section-subtitle">AgentStateLabs v1.0.0 is a suite-level release covering AgentStateGraph, CTXone and AgentStateDeveloper. Each product keeps its own version, so read the stage column rather than the suite number.</p>
+    </div>
+    <div class="table-wrap" data-reveal>
+      <table class="cmp">
+        <thead>
+          <tr><th>Product</th><th>Role</th><th>Stage</th><th>Site</th></tr>
+        </thead>
+        <tbody>
+          {products.map((p) => (
+            <tr style={`--ac: var(${p.token})`}>
+              <td><a href={`/products/${p.slug}/`}><span class="swatch"></span>{p.name}</a></td>
+              <td>{p.role}</td>
+              <td>{p.tier}</td>
+              <td><a href={p.site} target="_blank" rel="noopener">{p.site.replace('https://', '')}</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap" style="text-align:center">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow"><span class="dot">//</span> Where to start</span>
+      <h2 class="section-title">Adopt the layer that hurts most.</h2>
+      <p class="section-subtitle">Nothing requires the whole suite. See how they combine in practice, or read why we built one substrate instead of six integrations.</p>
+    </div>
+    <div data-reveal style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="/use-cases/">See the use cases →</a>
+      <a class="btn btn-secondary" href="/blog/one-graph-many-surfaces/">Why one graph</a>
+    </div>
+  </div>
+</section>
+
+</Site>
+
+<style>
+  .table-wrap { overflow-x: auto; }
+  .cmp { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .cmp th {
+    text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--text-muted); font-weight: 600;
+    padding: 0 16px 12px 0; border-bottom: 1px solid var(--border-strong);
+  }
+  .cmp td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: middle; }
+  .cmp tbody tr:hover td { background: var(--bg-tertiary); }
+  .cmp td a { color: var(--text-primary); font-weight: 600; display: inline-flex; align-items: center; gap: 9px; }
+  .cmp td:last-child a { color: var(--ac); font-weight: 500; font-family: var(--mono); font-size: 13px; }
+  .swatch { width: 9px; height: 9px; border-radius: 2px; background: var(--ac); flex-shrink: 0; }
+</style>

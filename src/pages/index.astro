@@ -1,0 +1,240 @@
+---
+/**
+ * agentstatelabs.com landing page.
+ *
+ * Company-level, not product-level: AgentStateLabs is the brand and the six
+ * products are its portfolio. Takes precedence over the Starlight docs route
+ * at / because src/pages wins over integration-injected routes.
+ *
+ * Maturity tiers follow the v1.0.0 decision: ASL v1.0.0 is a suite-level
+ * marketing version, so ASG, CTXone and ASD are the GA set while
+ * ThreadWeaver, Crucible and Router stay labelled at their real stage.
+ * Per-product semver is shown on the cards so the suite version is never
+ * mistaken for a package version.
+ */
+import Site from '../layouts/Site.astro';
+
+const products = [
+  {
+    name: 'AgentStateGraph',
+    token: '--p-asg',
+    role: 'The substrate',
+    tier: 'v1.0.0 · GA',
+    href: 'https://agentstategraph.dev',
+    blurb:
+      'Content-addressed, branchable, blameable state. Every commit carries intent, reasoning, confidence and authority — so agent state reads like source history.',
+    facts: 'Rust core · 73 MCP tools · 8 bindings · 4 storage backends',
+  },
+  {
+    name: 'CTXone',
+    token: '--p-ctxone',
+    role: 'Memory & context',
+    tier: 'v1.0.0 · GA',
+    href: 'https://ctxone.com',
+    blurb:
+      'Persistent, searchable, accountable memory. Write a fact once and every tool remembers it — with plans, branches, taint and provenance on top.',
+    facts: '90+ MCP tools · REST API · Lens UI · SQLite or Postgres',
+  },
+  {
+    name: 'AgentStateDeveloper',
+    token: '--p-asd',
+    role: 'Code intelligence',
+    tier: 'v1.0.0 · GA',
+    href: 'https://agentstatedeveloper.dev',
+    blurb:
+      'A decision ledger, effect declarations and a call graph for every function — queryable by the agents writing the code, and checked into git beside it.',
+    facts: 'Rust core · 64 MCP tools · 9 languages · git-native sidecar',
+  },
+  {
+    name: 'ThreadWeaver',
+    token: '--p-thread',
+    role: 'Conversation state',
+    tier: 'Beta',
+    href: 'https://threadweaver.org',
+    blurb:
+      'Threaded agent conversation and provenance built directly on the AgentStateGraph substrate, so a chat history is an auditable graph rather than a transcript.',
+    facts: 'Currently v0.3.5-beta.2',
+  },
+  {
+    name: 'AgentStateCrucible',
+    token: '--p-crucible',
+    role: 'Testing & validation',
+    tier: 'Early access',
+    href: 'https://agentstatecrucible.dev',
+    blurb:
+      'Run one scenario against many agents, capture every decision as an auditable graph, and score the runs side by side with a judge agent.',
+    facts: 'Scenario runner · judge scoring · run diffing',
+  },
+  {
+    name: 'AgentStateRouter',
+    token: '--p-router',
+    role: 'Execution routing',
+    tier: 'Alpha',
+    href: 'https://agentstaterouter.dev',
+    blurb:
+      'The Agent Execution Optimization Engine. Routes each task by cost-per-unit-of-work and your own agent history — not by token price alone.',
+    facts: 'Currently v0.1.0-alpha · suggester · proxy · embedded',
+  },
+];
+---
+
+<Site
+  title="AgentStateLabs — infrastructure for accountable AI agents"
+  description="AgentStateLabs builds the substrate that makes fleets of AI agents accountable, auditable and safe to deploy. Six products, one state graph. ASL v1.0.0 is here."
+  url="https://agentstatelabs.com"
+>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="release-pill">AgentStateLabs v1.0.0</span>
+      <h1>Agents are writing production. Nothing is writing it&nbsp;down.</h1>
+      <p class="lede">
+        AI agents now write code, manage infrastructure and make decisions at
+        scale. The bottleneck is no longer capability — it is accountability.
+        AgentStateLabs builds the primitives that make agents governable:
+        one content-addressed state graph, and six products on top of it.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="/products/">Explore the suite</a>
+        <a class="btn btn-secondary" href="/use-cases/">See use cases</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section problem">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow"><span class="dot">//</span> The problem</span>
+        <h2 class="section-title">When a fleet touches production, four questions have no answer.</h2>
+        <p class="section-subtitle">
+          Every one of them is a state problem. Today that state lives in chat
+          logs, scratch files and someone's memory — none of which survive the
+          session, and none of which you can audit.
+        </p>
+      </div>
+      <div class="q-grid" data-reveal>
+        <div class="q"><span class="q-n">01</span><p><strong>What changed?</strong> A diff shows the edit, not the reasoning that produced it.</p></div>
+        <div class="q"><span class="q-n">02</span><p><strong>Why?</strong> The rationale was in a conversation nobody kept.</p></div>
+        <div class="q"><span class="q-n">03</span><p><strong>Who authorised it?</strong> Attribution stops at a service account.</p></div>
+        <div class="q"><span class="q-n">04</span><p><strong>Expected vs actual?</strong> Nothing recorded what the agent thought would happen.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow"><span class="dot">//</span> The suite</span>
+        <h2 class="section-title">Six products. One state graph.</h2>
+        <p class="section-subtitle">
+          Every product writes to the same content-addressed graph, so memory,
+          code decisions, routing and test runs are branchable, blameable and
+          auditable by default — not five tools you have to reconcile.
+        </p>
+      </div>
+      <div class="card-grid" data-reveal>
+        {products.map((p) => (
+          <article class="card product" style={`--ac: var(${p.token})`}>
+            <span class="role">{p.role}</span>
+            <h3>{p.name}</h3>
+            <p>{p.blurb}</p>
+            <p class="facts">{p.facts}</p>
+            <div class="card-foot">
+              <span class="tier">{p.tier}</span>
+              <a href={p.href} target="_blank" rel="noopener">Visit&nbsp;→</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBSTRATE -->
+  <section class="section substrate">
+    <div class="wrap">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow"><span class="dot">//</span> How it fits</span>
+        <h2 class="section-title">One substrate, five surfaces on top.</h2>
+        <p class="section-subtitle">
+          CTXone holds session memory and plans. AgentStateDeveloper holds
+          codebase context. AgentStateRouter decides which model runs the work.
+          AgentStateCrucible proves the agent behaved. ThreadWeaver keeps the
+          conversation. All of it stored in AgentStateGraph — all of it auditable.
+        </p>
+      </div>
+      <pre class="stack" data-reveal><code>AgentStateGraph          ← the substrate everything else runs on
+├── CTXone               ← memory, plans, branches, provenance
+├── AgentStateDeveloper  ← symbols, effects, decision ledger
+├── ThreadWeaver         ← threaded conversation state
+├── AgentStateRouter     ← which agent, at what cost
+└── AgentStateCrucible   ← test runs, judge scoring, audit</code></pre>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-band">
+    <div class="wrap" data-reveal>
+      <h2 class="section-title">Start with the layer that hurts most.</h2>
+      <p class="section-subtitle">
+        Every product is self-hosted and MCP-native, so any MCP-compatible
+        agent connects immediately. Adopt one, or adopt the graph underneath
+        them all.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="/products/">Compare the products</a>
+        <a class="btn btn-secondary" href="/about/">About AgentStateLabs</a>
+      </div>
+    </div>
+  </section>
+</Site>
+
+<style>
+  /* Hero */
+  .hero { padding: 96px 0 72px; background:
+      radial-gradient(ellipse 70% 60% at 50% -10%, rgba(226,232,240,0.07), transparent 70%),
+      var(--bg-primary); }
+  .release-pill {
+    display: inline-block; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-primary);
+    border: 1px solid var(--border-strong); border-radius: 999px;
+    padding: 5px 13px; margin-bottom: 22px; background: var(--accent-subtle);
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5.4vw, 56px); font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.08; max-width: 15ch; margin-bottom: 20px;
+  }
+  .lede { font-size: 17px; color: var(--text-secondary); line-height: 1.75; max-width: 62ch; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+  /* Problem */
+  .problem { background: var(--bg-secondary); border-block: 1px solid var(--border); }
+  .q-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 800px) { .q-grid { grid-template-columns: 1fr; } }
+  .q { display: flex; gap: 14px; padding: 20px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius); }
+  .q-n { font-family: var(--mono); font-size: 12px; color: var(--text-muted); padding-top: 3px; }
+  .q p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.65; }
+  .q strong { color: var(--text-primary); }
+
+  /* Product cards */
+  .product { display: flex; flex-direction: column; }
+  .product .role { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ac); margin-bottom: 8px; }
+  .product .facts { font-family: var(--mono); font-size: 11.5px; color: var(--text-muted); margin-top: 12px; line-height: 1.6; }
+  .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .card-foot .tier { margin: 0; }
+  .card-foot a { font-size: 13px; font-weight: 600; color: var(--ac); white-space: nowrap; }
+
+  /* Substrate */
+  .substrate { background: var(--bg-secondary); border-block: 1px solid var(--border); }
+  .stack {
+    font-family: var(--mono); font-size: 13px; line-height: 1.9; color: var(--text-secondary);
+    background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; overflow-x: auto; max-width: 720px; margin: 0 auto;
+  }
+
+  /* CTA */
+  .cta-band { text-align: center; }
+  .cta-band .section-subtitle { margin: 0 auto; }
+  .cta-band .hero-cta { justify-content: center; }
+</style>

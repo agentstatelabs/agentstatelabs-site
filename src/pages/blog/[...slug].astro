@@ -1,0 +1,44 @@
+---
+/**
+ * Article page. Every article in the collection gets a page regardless of
+ * its publish date — the index does the date-gating, so a link revealed
+ * between builds never 404s.
+ *
+ * The accent comes from the article's `accent` field via the c-* classes in
+ * Site.astro, so articles inherit the portfolio palette rather than defining
+ * their own colours here.
+ */
+import Site from '../../layouts/Site.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const fmt = (d) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<Site
+  active="blog"
+  title={`${entry.data.title} — AgentStateLabs`}
+  description={entry.data.description}
+  url={`https://agentstatelabs.com/blog/${entry.id}/`}
+>
+
+<section class="page-hero">
+  <div class={`wrap article c-${entry.data.accent}`}>
+    <a class="a-back" href="/blog/">← All posts</a>
+    <div class="a-meta"><span class="dot">●</span> {fmt(entry.data.date)} · {entry.data.author}</div>
+    <h1>{entry.data.title}</h1>
+    <p class="a-lead">{entry.data.description}</p>
+    <div class="a-rule"></div>
+    <div class="a-body">
+      <Content />
+    </div>
+  </div>
+</section>
+
+</Site>

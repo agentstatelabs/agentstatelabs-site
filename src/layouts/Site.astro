@@ -1,0 +1,217 @@
+---
+/**
+ * Shared marketing layout for agentstatelabs.com — nav, footer, design system.
+ *
+ * Pattern follows AgentStateDeveloper-site's src/layouts/Site.astro: one
+ * self-contained layout carries the whole design system, and marketing pages
+ * under src/pages/ use it directly, bypassing Starlight. Starlight still
+ * renders the docs routes; see src/components/Footer.astro for the docs-side
+ * footer override.
+ *
+ * Colour identity: ASL is the parent brand, so it is deliberately
+ * near-monochrome — a neutral slate base with a platinum accent. The products
+ * supply the colour, via the --p-* tokens below, so the portfolio grid is the
+ * visual hero and the company chrome never competes with it.
+ */
+const {
+  title = 'AgentStateLabs — infrastructure for accountable AI agents',
+  description = 'AgentStateLabs builds the substrate that makes fleets of AI agents accountable, auditable, and safe to deploy. Six products, one state graph.',
+  active = '',
+  url = 'https://agentstatelabs.com',
+} = Astro.props;
+const year = new Date().getFullYear();
+const nav = [
+  { label: 'Products', href: '/products/', key: 'products' },
+  { label: 'Use cases', href: '/use-cases/', key: 'use-cases' },
+  { label: 'Docs', href: '/about/', key: 'docs' },
+  { label: 'Blog', href: '/blog/', key: 'blog' },
+];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={url} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={url} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style is:global>
+    :root {
+      /* --- ASL brand: near-monochrome parent identity --- */
+      --accent: #e2e8f0;
+      --accent-bright: #f8fafc;
+      --accent-glow: #e2e8f033;
+      --accent-subtle: #e2e8f012;
+
+      --bg-primary: #080b11;
+      --bg-secondary: #0f141c;
+      --bg-tertiary: #161d28;
+      --border: #202836;
+      --border-strong: #2f3a4d;
+      --text-primary: #e8ecf2;
+      --text-secondary: #98a3b5;
+      --text-muted: #667287;
+
+      --success: #10b981;
+      --warning: #f59e0b;
+
+      /* --- Portfolio accents, one per product ---
+         ASG, CTXone and Crucible all ship #3b82f6 on their own sites, so a
+         grid using each product's native colour would render three of six
+         cards identically. ASG keeps the canonical blue as the substrate;
+         CTXone and Crucible are shifted to adjacent, still-related hues so
+         every card is distinguishable. See ctx: this differs from the
+         product sites and is a brand decision to confirm, not a bug. */
+      --p-asg:      #3b82f6; /* blue   — matches agentstategraph.dev */
+      --p-ctxone:   #22d3ee; /* cyan   — differentiated from ASG blue */
+      --p-asd:      #8b5cf6; /* purple — matches agentstatedeveloper.dev */
+      --p-crucible: #f43f5e; /* rose   — differentiated from ASG blue */
+      --p-thread:   #d4a574; /* tan    — matches threadweaver.org */
+      --p-router:   #10b981; /* emerald— matches the Router site */
+
+      --radius: 12px;
+      --radius-sm: 8px;
+      --mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+      --maxw: 1120px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary); color: var(--text-primary);
+      line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-bright); text-decoration: none; }
+    a:hover { filter: brightness(1.15); }
+    code { font-family: var(--mono); font-size: 0.9em; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+    .eyebrow .dot { color: var(--accent); }
+
+    .section { padding: 88px 0; }
+    .section-head { margin-bottom: 40px; }
+    .section-head.center { text-align: center; }
+    .section-title { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 10px 0 12px; }
+    .section-subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 700px; }
+    .section-head.center .section-subtitle { margin-left: auto; margin-right: auto; }
+
+    /* Nav — sizing matched to the other ASL product sites (14.4px / 500) */
+    .nav { position: sticky; top: 0; z-index: 100; height: 60px; display: flex; align-items: center; background: rgba(8,11,17,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: var(--maxw); width: 100%; margin: 0 auto; padding: 0 24px; }
+    .nav-logo { display: flex; align-items: center; gap: 9px; font-size: 16px; font-weight: 700; color: var(--text-primary); }
+    .nav-logo .glyph { width: 15px; height: 15px; border-radius: 4px; background: linear-gradient(135deg, #64748b, #e2e8f0); box-shadow: 0 0 12px var(--accent-glow); }
+    .nav-links { display: flex; align-items: center; gap: 26px; }
+    .nav-links a { color: var(--text-secondary); font-size: 14.4px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); filter: none; }
+    @media (max-width: 860px) { .nav-links a { display: none; } }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
+    .btn-primary { background: var(--accent); color: #0b1020; }
+    .btn-primary:hover { background: var(--accent-bright); filter: none; }
+    .btn-secondary { background: transparent; color: var(--text-primary); border-color: var(--border-strong); }
+    .btn-secondary:hover { border-color: var(--accent); filter: none; }
+
+    /* Cards — `--ac` is set per-card to a product accent */
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 900px) { .card-grid { grid-template-columns: 1fr; } }
+    .card {
+      position: relative; overflow: hidden; padding: 24px;
+      background: var(--bg-secondary); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: 0.2s;
+    }
+    .card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--ac, var(--accent)); }
+    .card:hover { border-color: var(--ac, var(--accent-strong)); transform: translateY(-3px); }
+    .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+    .card .tier { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border-strong); border-radius: 999px; padding: 2px 9px; }
+
+    /* Footer */
+    .footer { border-top: 1px solid var(--border); padding: 56px 0 32px; background: var(--bg-secondary); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    .footer-brand p { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; margin-top: 10px; max-width: 320px; }
+    .footer-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .footer-col a { display: block; font-size: 13.5px; color: var(--text-secondary); margin-bottom: 8px; }
+    .footer-col a:hover { color: var(--text-primary); filter: none; }
+    .footer-bottom { text-align: center; font-size: 12px; color: var(--text-muted); padding-top: 28px; margin-top: 32px; border-top: 1px solid var(--border); max-width: var(--maxw); margin-left: auto; margin-right: auto; }
+
+    /* Reveal-on-scroll */
+    [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.5s, transform 0.5s; }
+    [data-reveal].revealed { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/"><span class="glyph"></span>AgentStateLabs</a>
+    <div class="nav-links">
+      {nav.map((n) => (
+        <a href={n.href} class={active === n.key ? 'active' : ''}>{n.label}</a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<slot />
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="nav-logo"><span class="glyph"></span>AgentStateLabs</span>
+      <p>Infrastructure for the intent-based era. We build the substrate that makes fleets of AI agents accountable, auditable, and safe to deploy.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <a href="/products/">All products</a>
+      <a href="https://agentstategraph.dev" target="_blank" rel="noopener">AgentStateGraph</a>
+      <a href="https://ctxone.com" target="_blank" rel="noopener">CTXone</a>
+      <a href="https://agentstatedeveloper.dev" target="_blank" rel="noopener">AgentStateDeveloper</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about/">About</a>
+      <a href="/use-cases/">Use cases</a>
+      <a href="/blog/">Blog</a>
+      <a href="/platform/licensing/">Licensing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="/platform/architecture/">Architecture</a>
+      <a href="mailto:info@agentstatelabs.com">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; {year} AgentStateLabs, LLC.</div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var els = document.querySelectorAll('[data-reveal]');
+  if (els.length && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function (el) { obs.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add('revealed'); });
+  }
+})();
+</script>
+
+</body>
+</html>

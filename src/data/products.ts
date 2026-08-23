@@ -5,12 +5,12 @@
  * capability list or a stage label updates every surface at once instead of
  * drifting across seven files.
  *
- * `source` is deliberately null for CTXone, ThreadWeaver, Crucible and Router.
- * Those repos are private, and prior ctx memory records that their marketing
- * sites already carry CTAs pointing at closed repos — a public visitor hits a
- * login wall. Until that is resolved (see plan task t-018) this site links to
- * the product's own site and a licensing contact instead of inventing a
- * public source link.
+ * `source` is null where there is no publicly reachable repo, verified by
+ * live HTTP check rather than assumption: ThreadWeaver and AgentStateCrucible
+ * both 404 for logged-out visitors, and Router has no public repo of its own.
+ * CTXone, AgentStateGraph and AgentStateDeveloper are public and link out.
+ * Those three null entries show a licensing contact instead, because pointing
+ * a visitor at a repo they cannot open is worse than omitting the link.
  */
 export type Product = {
   slug: string;
@@ -64,7 +64,7 @@ export const products: Product[] = [
     tier: 'v1.0.0 · GA',
     version: 'v1.0.0',
     site: 'https://ctxone.com',
-    source: null,
+    source: 'https://github.com/AgentStateLabs/CTXone',
     tagline: 'Write a fact once. Every tool remembers it.',
     problem:
       'Context anxiety: the daily dread of re-explaining the same project to your AI tools every morning. A context window is working memory — it ends when the session does.',

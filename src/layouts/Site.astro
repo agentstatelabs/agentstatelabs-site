@@ -20,11 +20,15 @@ const {
   url = 'https://agentstatelabs.com',
 } = Astro.props;
 const year = new Date().getFullYear();
+// Four destinations, all marketing pages except About, which is the entry
+// point into the Starlight-rendered company/platform docs. Previously this
+// listed "Docs" pointing at /about/, which promised product documentation the
+// site does not host — that lives on each product's own site.
 const nav = [
   { label: 'Products', href: '/products/', key: 'products' },
   { label: 'Use cases', href: '/use-cases/', key: 'use-cases' },
-  { label: 'Docs', href: '/about/', key: 'docs' },
   { label: 'Blog', href: '/blog/', key: 'blog' },
+  { label: 'About', href: '/about/', key: 'about' },
 ];
 ---
 <!DOCTYPE html>
@@ -240,22 +244,25 @@ const nav = [
     </div>
     <div class="footer-col">
       <h4>Products</h4>
-      <a href="/products/">All products</a>
-      <a href="https://agentstategraph.dev" target="_blank" rel="noopener">AgentStateGraph</a>
-      <a href="https://ctxone.com" target="_blank" rel="noopener">CTXone</a>
-      <a href="https://agentstatedeveloper.dev" target="_blank" rel="noopener">AgentStateDeveloper</a>
+      <a href="/products/agentstategraph/">AgentStateGraph</a>
+      <a href="/products/ctxone/">CTXone</a>
+      <a href="/products/agentstatedeveloper/">AgentStateDeveloper</a>
+      <a href="/products/threadweaver/">ThreadWeaver</a>
+      <a href="/products/agentstatecrucible/">AgentStateCrucible</a>
+      <a href="/products/agentstaterouter/">AgentStateRouter</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
       <a href="/about/">About</a>
       <a href="/use-cases/">Use cases</a>
       <a href="/blog/">Blog</a>
-      <a href="/platform/licensing/">Licensing</a>
+      <a href="mailto:info@agentstatelabs.com">Contact</a>
     </div>
     <div class="footer-col">
       <h4>Resources</h4>
       <a href="/platform/architecture/">Architecture</a>
-      <a href="mailto:info@agentstatelabs.com">Contact</a>
+      <a href="/platform/licensing/">Licensing</a>
+      <a href="https://ai-taxonomy.com" target="_blank" rel="noopener">The AI Taxonomy</a>
     </div>
   </div>
   <div class="footer-bottom">&copy; {year} AgentStateLabs, LLC.</div>

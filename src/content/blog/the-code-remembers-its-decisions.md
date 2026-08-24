@@ -1,7 +1,8 @@
 ---
 title: The code should remember its own decisions
 description: Ask why a function exists and the answer is in a Slack thread, a closed PR, or nobody's head. For agent-authored code, it needs to be in the repo.
-date: 2026-09-12
+date: 2026-08-24
+order: 6
 accent: asd
 ---
 

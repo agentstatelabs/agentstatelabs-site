@@ -1,7 +1,8 @@
 ---
 title: A context window is not memory
 description: Working memory and durable memory are different things. Confusing them is why your agent re-learns the same decision every Monday.
-date: 2026-09-05
+date: 2026-08-24
+order: 5
 accent: ctxone
 ---
 

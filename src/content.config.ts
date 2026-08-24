@@ -15,6 +15,10 @@ export const collections = {
 			// current date (client-side reveal between builds).
 			date: z.coerce.date(),
 			author: z.string().default('AgentStateLabs'),
+			// Series position. Dates alone cannot order the launch series: all ten
+			// published the same day, and equal dates fall back to filename order,
+			// which scatters a sequence whose posts each point to the next.
+			order: z.number().default(0),
 			// Per-article accent. Named for the product the article is about, so
 			// the blog inherits the portfolio palette from Site.astro rather
 			// than introducing a second colour system. Use `asl` for

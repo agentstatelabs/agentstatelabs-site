@@ -1,7 +1,8 @@
 ---
 title: We can't debug what we can't name
 description: "\"Context\", \"memory\", \"state\", \"agent\" — four words doing twenty jobs each. A field that can't name its problems can't compare solutions to them."
-date: 2026-10-10
+date: 2026-08-24
+order: 10
 accent: asl
 ---
 

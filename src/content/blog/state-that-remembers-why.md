@@ -1,7 +1,8 @@
 ---
 title: A commit that remembers why
 description: Git records what changed and who typed it. For agent state that isn't enough — the commit itself has to carry intent, reasoning, confidence and authority.
-date: 2026-08-29
+date: 2026-08-24
+order: 4
 accent: asg
 ---
 

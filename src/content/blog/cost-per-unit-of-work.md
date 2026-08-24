@@ -1,7 +1,8 @@
 ---
 title: The cheapest model is often the most expensive
 description: Routing on token price optimises the wrong number. What you actually pay for is completed work — and three retries on a cheap model beats nothing.
-date: 2026-10-03
+date: 2026-08-24
+order: 9
 accent: router
 ---
 

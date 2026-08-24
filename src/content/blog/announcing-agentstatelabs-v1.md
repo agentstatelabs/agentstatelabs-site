@@ -1,7 +1,8 @@
 ---
 title: Announcing AgentStateLabs v1.0.0
 description: Six products, one state graph, and a single idea — that an agent's work should be as reviewable as the code it writes. Here's what ships today.
-date: 2026-08-22
+date: 2026-08-24
+order: 1
 accent: asl
 ---
 

@@ -1,7 +1,8 @@
 ---
 title: "\"It worked when I tried it\" is not a test"
 description: Agents are non-deterministic, so a single passing run proves almost nothing. Validating them needs a harness built for distributions, not assertions.
-date: 2026-09-26
+date: 2026-08-24
+order: 8
 accent: crucible
 ---
 

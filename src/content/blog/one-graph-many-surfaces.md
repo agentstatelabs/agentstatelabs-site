@@ -1,7 +1,8 @@
 ---
 title: One graph beats six integrations
 description: Five tools that sync with each other is five times the failure surface. One substrate with five views is a different architecture entirely.
-date: 2026-08-22
+date: 2026-08-24
+order: 3
 accent: asg
 ---
 

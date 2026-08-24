@@ -1,7 +1,8 @@
 ---
 title: Capability was never the bottleneck
 description: Agents got dramatically better at doing the work. They got no better at explaining it — and that gap, not raw capability, is what keeps them out of production.
-date: 2026-08-22
+date: 2026-08-24
+order: 2
 accent: asl
 ---
 

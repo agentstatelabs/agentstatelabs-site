@@ -1,7 +1,8 @@
 ---
 title: Conversations should branch
 description: "Every chat UI makes you choose: keep this thread, or try the other approach. Branching a conversation the way you branch a codebase removes the choice."
-date: 2026-09-19
+date: 2026-08-24
+order: 7
 accent: thread
 ---
 

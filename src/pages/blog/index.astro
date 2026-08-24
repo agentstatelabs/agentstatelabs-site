@@ -11,8 +11,13 @@
 import Site from '../../layouts/Site.astro';
 import { getCollection } from 'astro:content';
 
+// Newest first; within a date, by explicit series order. The launch series
+// all published the same day, and equal dates otherwise fall back to filename
+// order, which scatters a sequence whose posts each point to the next.
 const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  (a, b) =>
+    b.data.date.getTime() - a.data.date.getTime() ||
+    (a.data.order || 0) - (b.data.order || 0)
 );
 
 const buildNow = new Date();

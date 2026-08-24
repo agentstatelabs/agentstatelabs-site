@@ -81,6 +81,7 @@ work everywhere.
 | CTXone | `--ctx-text` | `--ctx-text-dim` |
 | AgentStateCrucible | `--cru-text` | `--cru-text-dim` |
 | AgentStateGraph | `--txt` | `--txt-2` |
+| The AI Taxonomy | `--text` | `--text-dim` |
 
 Every snippet below therefore uses `var(--token, #literal)` form. If you paste
 one into the wrong site the fallback still renders correctly — it just will
@@ -176,9 +177,39 @@ Do the check against **built output**, not source. On these sites the source
 is a mix of `.astro`, `.md`, `.mdx` and raw HTML, and only the build shows
 what a visitor actually receives.
 
-## Out of scope
+## Reference sites are different
 
-This spec does not cover the CTAs that point at private repos. Four sites
-(CTXone, ThreadWeaver, Crucible, Router) currently link to closed repos that
-give a public visitor a login wall. That is a separate product decision —
-adding brand polish to a page whose main CTA dead-ends does not help.
+Not every AgentStateLabs property is a product. [The AI Taxonomy](https://ai-taxonomy.com)
+is a community reference for agentic AI vocabulary, and it is more useful to
+the field — and more credible — if it does not read as vendor marketing.
+
+So it takes a **different wording** and a **reduced placement**:
+
+> **Maintained by AgentStateLabs**
+
+- **Footer byline only.** No nav backlink. A parent-brand link in the nav of a
+  neutral reference would make it read as an ASL property rather than a shared
+  resource.
+- **Same neutral glyph**, at 13px rather than 15px, so it is recognisably part
+  of the family without claiming product status.
+- The footer also states the reference is "free to use, cite and disagree
+  with", which is the point of publishing it.
+
+Do not apply "A product of AgentStateLabs" here. If another reference or
+research property is added later, it follows this pattern, not the product one.
+
+## Related: private-repo CTAs (resolved)
+
+This spec deliberately does not cover source and CTA links, which were handled
+separately. Worth recording what that turned up, because the assumption going
+in was wrong:
+
+A live HTTP check of every repo link across the six sites found that **CTXone
+is public** — earlier notes claiming otherwise were stale. Only
+**AgentStateCrucible** and **ThreadWeaver** 404 for logged-out visitors. Those
+two now use "Request access" CTAs pointing at licensing, and their install
+docs state the gate before the commands rather than after they fail.
+
+The lesson generalises: a link audit only covers `href`s. Crucible's worst
+offender was its hero's copy-paste `curl … install.sh | bash`, which 404s and
+is not a link at all. Check shell commands and install snippets too.

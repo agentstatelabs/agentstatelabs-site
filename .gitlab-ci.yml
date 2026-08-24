@@ -30,3 +30,22 @@ ci-guard:
         echo "ERROR: GITHUB_REPO unset -> publish-github will NOT run"; exit 1
       fi
       echo "publish-github target: $GITHUB_REPO"
+
+# Dispatch the GitHub Pages build AFTER publish-github mirrors main to GitHub.
+# GitHub's native push trigger does not fire reliably for mirror pushes, so the
+# site silently served a stale build. `needs` guarantees the mirror lands first,
+# otherwise the Action rebuilds the previous commit.
+trigger-github-pages:
+  stage: .post
+  image: curlimages/curl:latest
+  needs: ["publish-github"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $GITHUB_REPO'
+  script:
+    - |
+      curl -fsS -X POST \
+        -H "Authorization: Bearer $GH_PAT" \
+        -H "Accept: application/vnd.github+json" \
+        "https://api.github.com/repos/$GITHUB_REPO/actions/workflows/pages.yml/dispatches" \
+        -d '{"ref":"main"}'
+    - echo "Dispatched pages.yml on $GITHUB_REPO"

@@ -1,0 +1,49 @@
+# Builds the Astro site and deploys it to GitHub Pages.
+#
+# agentstatelabs.com had no workflow at all, so although GitLab CI mirrored
+# main to GitHub on every push, nothing ever rebuilt the site — it served a
+# June 2026 build for months. Modelled on the equivalent workflow in
+# AgentStateCrucible-site, which deploys the same Astro shape successfully.
+#
+# workflow_dispatch is required: GitHub's native push trigger does not fire
+# reliably for mirror pushes, so .gitlab-ci.yml dispatches this explicitly
+# after publish-github lands.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

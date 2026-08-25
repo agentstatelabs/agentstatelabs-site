@@ -31,7 +31,6 @@ export default defineConfig({
 					label: 'Platform',
 					items: [
 						{ label: 'Architecture', slug: 'platform/architecture' },
-						{ label: 'Licensing', slug: 'platform/licensing' },
 					],
 				},
 				{

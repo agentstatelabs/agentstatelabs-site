@@ -31,21 +31,15 @@ ci-guard:
       fi
       echo "publish-github target: $GITHUB_REPO"
 
-# Dispatch the GitHub Pages build AFTER publish-github mirrors main to GitHub.
-# GitHub's native push trigger does not fire reliably for mirror pushes, so the
-# site silently served a stale build. `needs` guarantees the mirror lands first,
-# otherwise the Action rebuilds the previous commit.
-trigger-github-pages:
-  stage: .post
-  image: curlimages/curl:latest
-  needs: ["publish-github"]
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main" && $GITHUB_REPO'
-  script:
-    - |
-      curl -fsS -X POST \
-        -H "Authorization: Bearer $GH_PAT" \
-        -H "Accept: application/vnd.github+json" \
-        "https://api.github.com/repos/$GITHUB_REPO/actions/workflows/pages.yml/dispatches" \
-        -d '{"ref":"main"}'
-    - echo "Dispatched pages.yml on $GITHUB_REPO"
+# NOTE: no dispatch job here any more.
+#
+# This pipeline used to poke the GitHub Pages workflow over the API with
+# GH_PAT — a second GitHub credential that had to be rotated in lockstep with
+# GITHUB_TOKEN. GH_PAT was revoked on 2026-09-09, so the job could only fail.
+#
+# Removing it is safe here because this site's Pages workflow DOES fire on
+# push (6 push-triggered runs in its history), so the mirror push alone
+# deploys it. That is not universally true: ctxone-site and threadweaver-site
+# had wedged workflow registrations where push never fired and dispatch was
+# the only path — both were fixed by renaming the workflow file. Check for
+# push runs before assuming a dispatch job is redundant.

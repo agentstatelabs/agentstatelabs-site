@@ -41,7 +41,7 @@ the suite version.
 
 ## Licensing
 
-All AgentStateLabs products use **Business Source License 1.1**, converting to Apache 2.0 four years after each version's first publication. This protects the project from strip-mining while leaving individuals, startups, and enterprises that use it internally completely unaffected.
+All AgentStateLabs products use **Business Source License 1.1**, converting to Apache 2.0 18 months after each version's first publication. This protects the project from strip-mining while leaving individuals, startups, and enterprises that use it internally completely unaffected.
 
 
 ## Contact

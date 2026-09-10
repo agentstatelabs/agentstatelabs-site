@@ -3,7 +3,7 @@ title: Licensing
 description: Business Source License 1.1 — how it works and what it means for your use.
 ---
 
-All AgentStateLabs products are licensed under the **Business Source License 1.1 (BSL-1.1)**, with an automatic conversion to **Apache 2.0** after four years from each release.
+All AgentStateLabs products are licensed under the **Business Source License 1.1 (BSL-1.1)**, with an automatic conversion to **Apache 2.0** after 18 months from each release.
 
 ## What BSL-1.1 means in practice
 
@@ -16,7 +16,7 @@ BSL-1.1 is a **source-available license**, not an open-source license (by the OS
 - ✅ Study, fork, and modify the source for internal use
 - ✅ Contribute back via merge requests
 - ✅ Use in research and evaluation
-- ✅ Use the Apache 2.0 release (four years after each version's release date)
+- ✅ Use the Apache 2.0 release (18 months after each version's release date)
 
 ### What you CANNOT do without a commercial license
 
@@ -26,9 +26,9 @@ BSL-1.1 is a **source-available license**, not an open-source license (by the OS
 
 The key test: **are you building *with* these tools, or *selling* these tools?** Building with them is allowed. Selling them as a service requires a commercial license.
 
-## The four-year conversion
+## The 18-month conversion
 
-Every release automatically converts to Apache 2.0 exactly four years from its release date. This means:
+Every release automatically converts to Apache 2.0 exactly 18 months from its release date. This means:
 
 - Older versions of all products are already fully open-source (Apache 2.0)
 - Newer versions will be by 2029–2030

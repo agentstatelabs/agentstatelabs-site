@@ -11,7 +11,13 @@
  * CTXone, AgentStateGraph and AgentStateDeveloper are public and link out.
  * Those three null entries show a licensing contact instead, because pointing
  * a visitor at a repo they cannot open is worse than omitting the link.
+ *
+ * `version` comes from public/releases.json, which the product sites also
+ * fetch from https://agentstatelabs.com/releases.json at page load. Bump a
+ * release there, not here.
  */
+import releases from '../../public/releases.json';
+
 export type Product = {
   slug: string;
   name: string;
@@ -36,7 +42,7 @@ export const products: Product[] = [
     token: '--p-asg',
     role: 'The substrate',
     tier: 'v1.0.0 · GA',
-    version: 'v1.0.0',
+    version: releases.agentstategraph,
     site: 'https://agentstategraph.dev',
     source: 'https://github.com/agentstatelabs/agentstategraph',
     tagline: 'What git was to source code, AgentStateGraph is to agent state.',
@@ -62,7 +68,7 @@ export const products: Product[] = [
     token: '--p-ctxone',
     role: 'Memory and context',
     tier: 'v1.0.0 · GA',
-    version: 'v1.0.0',
+    version: releases.ctxone,
     site: 'https://ctxone.com',
     source: 'https://github.com/AgentStateLabs/CTXone',
     tagline: 'Write a fact once. Every tool remembers it.',
@@ -89,7 +95,7 @@ export const products: Product[] = [
     token: '--p-asd',
     role: 'Code intelligence',
     tier: 'v1.0.0 · GA',
-    version: 'v1.0.0',
+    version: releases.agentstatedeveloper,
     site: 'https://agentstatedeveloper.dev',
     source: 'https://github.com/agentstatelabs/agentstatedeveloper',
     tagline: 'The context lives with the code, not in a chat log.',
@@ -114,7 +120,7 @@ export const products: Product[] = [
     token: '--p-thread',
     role: 'Conversation state',
     tier: 'Beta',
-    version: 'v0.3.5-beta.2',
+    version: releases.threadweaver,
     site: 'https://threadweaver.org',
     source: null,
     tagline: 'A conversation is a tree. Stop storing it as a line.',
@@ -163,7 +169,7 @@ export const products: Product[] = [
     token: '--p-router',
     role: 'Execution routing',
     tier: 'Alpha',
-    version: 'v0.1.0-alpha',
+    version: releases.agentstaterouter,
     site: 'https://agentstaterouter.dev',
     source: null,
     tagline: 'Optimise cost per unit of work, not cost per token.',

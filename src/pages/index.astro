@@ -13,6 +13,7 @@
  * mistaken for a package version.
  */
 import Site from '../layouts/Site.astro';
+import releases from '../../public/releases.json';
 
 const products = [
   {
@@ -53,7 +54,7 @@ const products = [
     href: 'https://threadweaver.org',
     blurb:
       'Threaded agent conversation and provenance built directly on the AgentStateGraph substrate, so a chat history is an auditable graph rather than a transcript.',
-    facts: 'Currently v0.3.5-beta.2',
+    facts: `Currently ${releases.threadweaver}`,
   },
   {
     name: 'AgentStateCrucible',
@@ -73,7 +74,7 @@ const products = [
     href: 'https://agentstaterouter.dev',
     blurb:
       'The Agent Execution Optimization Engine. Routes each task by cost-per-unit-of-work and your own agent history — not by token price alone.',
-    facts: 'Currently v0.1.0-alpha · suggester · proxy · embedded',
+    facts: `Currently ${releases.agentstaterouter} · suggester · proxy · embedded`,
   },
 ];
 ---

@@ -1,7 +1,7 @@
 {
   "agentstategraph": "v1.2.7",
   "ctxone": "v1.0.12",
-  "agentstatedeveloper": "v1.4.0",
+  "agentstatedeveloper": "v1.4.1",
   "threadweaver": "v0.4.0",
   "agentstaterouter": "v0.1.0-alpha"
 }
